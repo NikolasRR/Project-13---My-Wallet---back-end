@@ -35,10 +35,13 @@ async function signIn(req, res) {
     const { email, password } = req.body;
 
     try {
+        
         await mongoClient.connect();
         const db = mongoClient.db(process.env.DB_MY_WALLET);
+        
 
         const user = await db.collection("users").findOne({ email: email });
+        
         if (user && bcrypt.compareSync(password, user.password)) {
             const token = v4();
             await db.collection("sessions").insertOne({
@@ -46,6 +49,7 @@ async function signIn(req, res) {
                 token: token,
                 lastStatus: Date.now()
             });
+            
 
             mongoClient.close();
             return res.send(token).status(201);
@@ -57,5 +61,4 @@ async function signIn(req, res) {
         res.sendStatus(500);
     }
 }
-
 export { signUp, signIn };
