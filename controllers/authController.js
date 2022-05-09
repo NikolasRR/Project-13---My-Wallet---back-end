@@ -21,7 +21,7 @@ async function signUp(req, res) {
         });
 
         await db.collection("transactions").insertOne({ email: email, statement: [] });
-
+        //soh adicionei isso para comitar
         mongoClient.close();
         res.sendStatus(201);
 
