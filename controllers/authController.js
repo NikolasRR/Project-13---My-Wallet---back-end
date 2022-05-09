@@ -58,7 +58,7 @@ async function signIn(req, res) {
         res.sendStatus(401)
     } catch (error) {
         mongoClient.close();
-        res.sendStatus(500);
+        res.send("deuruim").status(500);
     }
 }
 export { signUp, signIn };
