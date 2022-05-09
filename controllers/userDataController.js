@@ -11,10 +11,11 @@ async function getStatement(req, res) {
 
         const session = await db.collection("sessions").findOne({ token: token });
         if (session) {
+            const user = await db.collection("users").findOne({ email: session.email });
             const statement = await db.collection("transactions").findOne({ email: session.email });
             delete statement._id;
             mongoClient.close();
-            return res.send(statement).status(200);
+            return res.send({...statement, name: user.name}).status(200);
         }
         mongoClient.close();
         return res.sendStatus(404);

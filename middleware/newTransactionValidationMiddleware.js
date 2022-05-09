@@ -1,3 +1,5 @@
+import joi from "joi";
+
 async function newTransactionValidation (req, res, next) {
     const transactionSchema = joi.object({
         value: joi.number().required(),
