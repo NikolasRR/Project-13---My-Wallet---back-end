@@ -27,7 +27,7 @@ async function signUp(req, res) {
 
     } catch (error) {
         mongoClient.close();
-        res.sendStatus(500);
+        res.send("deu ruim").status(500);
     }
 }
 
