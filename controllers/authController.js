@@ -27,7 +27,7 @@ async function signUp(req, res) {
 
     } catch (error) {
         mongoClient.close();
-        res.send("deu ruim").status(500);
+        res.sendStatus(500);
     }
 }
 
@@ -58,7 +58,7 @@ async function signIn(req, res) {
         res.sendStatus(401)
     } catch (error) {
         mongoClient.close();
-        res.send("deuruim").status(500);
+        res.sendStatus(500);
     }
 }
 export { signUp, signIn };
