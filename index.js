@@ -20,4 +20,4 @@ const everyFifteenSeconds = 15000;
 
 setInterval(sessionMonitor, everyFifteenSeconds);
 
-server.listen(process.env.PORT, () => console.log("Server running on port " + process.env.PORT));
+server.listen(process.env.PORT, () => console.log(chalk.bold.blue("Server running on port " + process.env.PORT)));
