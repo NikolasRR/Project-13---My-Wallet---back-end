@@ -4,6 +4,8 @@ import { mongoClient } from "./../index.js"
 
 async function getStatement(req, res) {
     const token = req.headers.authorization.replace("Bearer", "").trim();
+    console.log(req.cookies); //acessa os cookies que vieram com a requisição
+    res.clearCookie("cookie_name"); //deleta o cookie "cookie_name"
 
     try {
         await mongoClient.connect();
@@ -15,6 +17,7 @@ async function getStatement(req, res) {
             const statement = await db.collection("transactions").findOne({ email: session.email });
             delete statement._id;
             mongoClient.close();
+            
             return res.send({...statement, name: user.name}).status(200);
         }
         mongoClient.close();
@@ -27,6 +30,7 @@ async function getStatement(req, res) {
 
 async function postNewTransaction(req, res) {
     const token = req.headers.authorization.replace("Bearer", "").trim();
+    // res.clearCookie("cookie_name")
 
     try {
         await mongoClient.connect();

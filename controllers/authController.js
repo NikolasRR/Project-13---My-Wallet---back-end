@@ -21,7 +21,7 @@ async function signUp(req, res) {
         });
 
         await db.collection("transactions").insertOne({ email: email, statement: [] });
-        //soh adicionei isso para comitar
+       
         mongoClient.close();
         res.sendStatus(201);
 
@@ -52,7 +52,11 @@ async function signIn(req, res) {
             
 
             mongoClient.close();
-            return res.send(token).status(201);
+
+            //crio o cookie com (nome, valor, config)
+            res.cookie('cookie_name',{ token: token, name: "nikolau" }, { httpOnly: true });
+            return res.send(token);
+            
         }
         mongoClient.close();
         res.sendStatus(401)
